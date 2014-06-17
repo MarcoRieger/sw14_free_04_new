@@ -35,7 +35,7 @@ public class Fragment_Statistic extends Fragment {
 		}
 		
 		EditText etMember = (EditText) rootView.findViewById(R.id.presentMembers);
-		etMember.setText(String.valueOf(counter));
+		etMember.setText(counter);
 		
 		return rootView;
 	}	

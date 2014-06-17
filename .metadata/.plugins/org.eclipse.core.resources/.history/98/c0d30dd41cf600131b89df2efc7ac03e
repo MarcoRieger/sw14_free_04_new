@@ -24,6 +24,10 @@ public class Fragment_Statistic extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_statistic, container,
 				false);
+		return rootView;
+	}
+	
+	public void refreshStats () {
 		ArrayList<Member> members = new ArrayList<Member>();
 		members = Read_CSV.getMemberList();
 		
@@ -34,10 +38,9 @@ public class Fragment_Statistic extends Fragment {
 				counter++;
 		}
 		
-		EditText etMember = (EditText) rootView.findViewById(R.id.presentMembers);
-		etMember.setText(String.valueOf(counter));
-		
-		return rootView;
-	}	
+		EditText etMember = (EditText) findViewById(R.id.presentMembers);
+		etMember.setText(counter);		
+	}
+	
 }
 	

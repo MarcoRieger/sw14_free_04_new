@@ -24,7 +24,7 @@ public class Fragment_Statistic extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_statistic, container,
 				false);
-		ArrayList<Member> members = new ArrayList<Member>();
+		/*ArrayList<Member> members = new ArrayList<Member>();
 		members = Read_CSV.getMemberList();
 		
 		int counter = 0;
@@ -35,7 +35,7 @@ public class Fragment_Statistic extends Fragment {
 		}
 		
 		EditText etMember = (EditText) rootView.findViewById(R.id.presentMembers);
-		etMember.setText(String.valueOf(counter));
+		etMember.setText(counter);*/
 		
 		return rootView;
 	}	

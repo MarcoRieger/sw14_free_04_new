@@ -19,25 +19,13 @@ public class Fragment_Statistic extends Fragment {
 		return fragment;
 	}
 
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_statistic, container,
 				false);
-		ArrayList<Member> members = new ArrayList<Member>();
-		members = Read_CSV.getMemberList();
-		
-		int counter = 0;
-		
-		for (int i = 0; i < members.size(); i++) {
-			if (members.get(i).isSelected())
-				counter++;
-		}
-		
-		EditText etMember = (EditText) rootView.findViewById(R.id.presentMembers);
-		etMember.setText(String.valueOf(counter));
-		
 		return rootView;
-	}	
+	}
 }
-	
