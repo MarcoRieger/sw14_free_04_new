@@ -133,5 +133,7 @@ public class Fragment_Member extends Fragment {
 	      return convertView;
 	    }
 	  }
+	  
+	 
 }
 	
