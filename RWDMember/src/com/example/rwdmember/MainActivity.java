@@ -235,12 +235,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    	    	no_member = true;
 	    	    }
 	    	}
-	    	if(no_member == true)
+	    	if (no_member == true)
 	    	{
 	    		Toast.makeText(getApplicationContext(), 
 						"! NO MEMBER !", Toast.LENGTH_LONG).show();
 	    	}
 	    	Read_CSV.setMemberList(members);
+	    	statRefresh();
 			Fragment_Member.refresh();
 	    }
 	    	    
@@ -266,23 +267,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	  // else continue with any other code you need in the method
 	}
 	
-	public void statistic (){
-//	    ArrayList<Member> members = Read_CSV.getMemberList();
-//		int all_members = members.size();
-//	    int current_members = 111;
-//	    for (int i = 0; i <= members.size(); i++)
-//	    {
-//	    	if(members.get(i).isSelected() == true)
-//	    	{
-//	    		current_members++;
-//	    	}  	
-//	    }
-//    	EditText etBarcode = (EditText) findViewById(R.id.etBarcode);
-//		etBarcode.setText(current_members);
-
-	}
-	
-		
 	public void saveFile (){
 		Long tStamp = System.currentTimeMillis() / 1000;
 		File logFile = new File("/sdcard/rwd/" + getDate(tStamp.toString()) + ".csv");
@@ -323,7 +307,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		catch(Exception ex) {
 		    return "xx";
 			}
-		} 
+	} 
+	public void statRefresh() {
+		ArrayList<Member> members = new ArrayList<Member>();
+		members = Read_CSV.getMemberList();
+		
+		int counter = 0;
+		
+		for (int i = 0; i < members.size(); i++) {
+			if (members.get(i).isSelected())
+				counter++;
+		}
+		
+		//EditText etMember = (EditText) rootView.findViewById(R.id.presentMembers);
+		TextView etMember = (TextView) findViewById(R.id.textViewOutput);
+		etMember.setText(String.valueOf(counter) + " from " + String.valueOf(members.size()));
+	}
 	
 	
 }
