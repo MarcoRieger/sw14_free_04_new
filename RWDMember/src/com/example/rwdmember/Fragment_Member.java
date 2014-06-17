@@ -25,7 +25,7 @@ public class Fragment_Member extends Fragment {
 		fragment.setArguments(args);
 		Read_CSV.readFile();
 		return fragment;
-		//Test	
+		//Test	aöpihflsidhfcöslad
 	}
 	
 	public static void refresh() {
