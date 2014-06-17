@@ -274,7 +274,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@SuppressLint("SdCardPath") 
 	public void saveFile (){
 		Long tStamp = System.currentTimeMillis();
-		String logFile = "rwd/" + getDate(tStamp.toString()) + ".csv";
+		String logFile = "/sdcard/rwd/" + getDate(tStamp.toString()) + ".csv";
 		ArrayList<Member> mems = new ArrayList<Member>();
 		mems = Read_CSV.getMemberList();
 		
