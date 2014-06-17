@@ -319,9 +319,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				counter++;
 		}
 		
-		//EditText etMember = (EditText) rootView.findViewById(R.id.presentMembers);
-		TextView etMember = (TextView) findViewById(R.id.textViewOutput);
-		etMember.setText(String.valueOf(counter) + " from " + String.valueOf(members.size()));
+
 	}
 	
 	
