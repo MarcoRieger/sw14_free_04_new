@@ -4,13 +4,18 @@ package com.example.rwdmember;
 //import java.util.List;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -22,6 +27,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -32,6 +38,7 @@ import android.widget.TextView;
 //import android.widget.ListView;
 //import android.widget.SimpleAdapter;
 import android.widget.Toast;
+import au.com.bytecode.opencsv.CSVWriter;
 
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -241,7 +248,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						"! NO MEMBER !", Toast.LENGTH_LONG).show();
 	    	}
 	    	Read_CSV.setMemberList(members);
-	    	statRefresh();
 			Fragment_Member.refresh();
 	    }
 	    	    
@@ -263,66 +269,64 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				}
 			}
 		}
-	    
-	  // else continue with any other code you need in the method
 	}
 	
+	@SuppressLint("SdCardPath") 
 	public void saveFile (){
-		Long tStamp = System.currentTimeMillis() / 1000;
-		File logFile = new File("/sdcard/rwd/" + getDate(tStamp.toString()) + ".csv");
+		Long tStamp = System.currentTimeMillis();
+		String logFile = "rwd/" + getDate(tStamp.toString()) + ".csv";
+		ArrayList<Member> mems = new ArrayList<Member>();
+		mems = Read_CSV.getMemberList();
 		
-		if (!logFile.exists()) {
-            try {
-                logFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-        	ArrayList<Member> mems = new ArrayList<Member>();
-    		mems = Read_CSV.getMemberList();
-            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
-            for (int i = 0; i < mems.size(); i++) {
-    			buf.append(mems.get(i).getLastName()+ "," + mems.get(i).getFirstName() + "," + mems.get(i).getBarcode());
-    		}
-            buf.newLine();
-            buf.close();
-        } catch (IOException e) {
+		String text = "";
+		for (int i = 0; i < mems.size(); i++) {
+			text += mems.get(i).getLastName() + "," + mems.get(i).getFirstName() + "," + mems.get(i).getBarcode() + ",";
+			if (mems.get(i).isSelected() == true) {
+				text += "1\n";
+			}
+			else {
+				text += "0\n";
+			}
+		}
+		
+		try {
+		    String filename = logFile;
+		    File myFile = new File(Environment.getExternalStorageDirectory(), filename);
+		    if (!myFile.exists())
+		        myFile.createNewFile();
+		    FileOutputStream fos;
+		    byte[] data = text.getBytes();
+		    try {
+		        fos = new FileOutputStream(myFile);
+		        fos.write(data);
+		        fos.flush();
+		        fos.close();
+		    } catch (FileNotFoundException e) {
+		        e.printStackTrace();
+		    }
+		}
+	    catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-		
+        }  
 		Toast.makeText(getApplicationContext(), "Wrote " + logFile.toString(), Toast.LENGTH_LONG).show();
+		
 	}
 	
 	public void Close (){
 		saveFile();
 		System.exit(0);
 	}
+	
 	private String getDate(String timeStamp) {
 		try {
-		    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
 		    Date netDate = (new Date(Long.parseLong(timeStamp)));
 		    return sdf.format(netDate);
 		}
 		catch(Exception ex) {
 		    return "xx";
-			}
-	} 
-	public void statRefresh() {
-		ArrayList<Member> members = new ArrayList<Member>();
-		members = Read_CSV.getMemberList();
-		
-		int counter = 0;
-		
-		for (int i = 0; i < members.size(); i++) {
-			if (members.get(i).isSelected())
-				counter++;
 		}
-		
-		//EditText etMember = (EditText) rootView.findViewById(R.id.presentMembers);
-		TextView etMember = (TextView) findViewById(R.id.textViewOutput);
-		etMember.setText(String.valueOf(counter) + " from " + String.valueOf(members.size()));
-	}
-	
+	} 	
 	
 }
