@@ -1,0 +1,143 @@
+package com.example.rwdmember;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+@SuppressLint("SdCardPath")
+public class Read_CSV extends ListActivity {
+	
+	private static ArrayList<Member> memberList = new ArrayList<Member>(); //List<Member>
+	
+	public static ArrayList<Member> getMemberList() {
+		return memberList;
+	}
+
+	public static void setMemberList(ArrayList<Member> list) {
+		memberList = list;
+	}
+	
+	public static void readFile(/*String filePath*/) {
+		  if(!memberList.isEmpty()) {
+			  memberList.clear();
+		  }		
+		  String filepath = "/sdcard/Download/Namensliste.csv";  
+		  BufferedReader br = null;  
+		  String line = "";  
+		  String splitBy = ",";    
+		  
+		  try {  
+		  
+		   br = new BufferedReader(new FileReader(filepath));  
+		   while ((line = br.readLine()) != null) {  
+		  
+		    // split on comma(',')  
+		    String[] members = line.split(splitBy);  
+		  
+		    // create member object to store values  
+		    Member memberObject = new Member();  
+		  
+		    // add values from csv to member object  
+		    memberObject.setLastName(members[0]);  
+		    memberObject.setFirstName(members[1]);  
+		    memberObject.setBarcode(members[2]);
+		    if (members[3].equals("0")) {
+		    	memberObject.setSelected(false);
+		    }
+		    else {
+		    	memberObject.setSelected(true);
+		    }
+
+		    // adding member objects to a list
+		    memberList.add(memberObject);		  
+		   } 
+		   //Fragment_Member.refresh();
+
+		  } catch (FileNotFoundException e) {  
+		   e.printStackTrace();  
+		  } catch (IOException e) {  
+		   e.printStackTrace();  
+		  } finally {  
+		   if (br != null) {  
+		    try {  
+		     br.close();  
+		    } catch (IOException e) {  
+		     e.printStackTrace();  
+		    }  
+		   }  
+		  }
+		 }
+
+	public static void openFile(String filePath) {
+		  memberList.clear();
+		  String filepath = filePath;  
+		  BufferedReader br = null;  
+		  String line = "";  
+		  String splitBy = ",";    
+		  
+		  try {  
+		  
+		   br = new BufferedReader(new FileReader(filepath));  
+		   while ((line = br.readLine()) != null) {  
+		  
+		    // split on comma(',')  
+		    String[] members = line.split(splitBy);  
+		  
+		    // create member object to store values  
+		    Member memberObject = new Member();  
+		  
+		    // add values from csv to member object  
+		    memberObject.setLastName(members[0]);  
+		    memberObject.setFirstName(members[1]);  
+		    memberObject.setBarcode(members[2]);
+		    if (members[3].equals("0")) {
+		    	memberObject.setSelected(false);
+		    }
+		    else {
+		    	memberObject.setSelected(true);
+		    }
+
+		    // adding member objects to a list
+		    memberList.add(memberObject);		
+		   } 
+		   Fragment_Member.refresh();
+		  } 
+		  
+		  
+		  
+		  catch (FileNotFoundException e) {  
+		   e.printStackTrace();  
+		  } catch (IOException e) {  
+		   e.printStackTrace();  
+		  } finally {  
+		   if (br != null) {  
+		    try {  
+		     br.close();  
+		    } catch (IOException e) {  
+		     e.printStackTrace();  
+		    }  
+		   }  
+		  }
+		 }
+	
+	
+}
