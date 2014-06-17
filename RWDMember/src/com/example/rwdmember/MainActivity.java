@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 //import android.widget.ListView;
 //import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -109,7 +110,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 	    case R.id.menuitem_search:
-	        search();
+	        //search();
 	        return true;
 	    case R.id.menuitem_open:
 	    	//--- Open File Dialog
@@ -203,7 +204,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		IntentIntegrator integrator = new IntentIntegrator(this);
 		integrator.initiateScan();
 	}
-	public int all_member = 0;
+
 	@SuppressWarnings("null")
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	    IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
@@ -235,13 +236,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						"! NO MEMBER !", Toast.LENGTH_LONG).show();
 	    	}
 	    	Read_CSV.setMemberList(members);
-//	    	all_member++;
-//	    	EditText presentMembers = (EditText) findViewById(R.id.presentMembers);
-//	    	presentMembers.setText(all_member);
 			Fragment_Member.refresh();
 	    }
-	    
-	    
+	    	    
 	    switch(requestCode) {
 			case ACTIVITY_CHOOSE_FILE: {
 				if (resultCode == RESULT_OK){
@@ -264,8 +261,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	  // else continue with any other code you need in the method
 	}
 	
-	public void search (){
-		//Search name in Memberlist
+	public void statistic (){
+//	    ArrayList<Member> members = Read_CSV.getMemberList();
+//		int all_members = members.size();
+//	    int current_members = 111;
+//	    for (int i = 0; i <= members.size(); i++)
+//	    {
+//	    	if(members.get(i).isSelected() == true)
+//	    	{
+//	    		current_members++;
+//	    	}  	
+//	    }
+//    	EditText etBarcode = (EditText) findViewById(R.id.etBarcode);
+//		etBarcode.setText(current_members);
+
 	}
 	
 		
