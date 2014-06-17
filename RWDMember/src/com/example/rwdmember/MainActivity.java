@@ -124,7 +124,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	        saveFile();
 	        return true;
 	    case R.id.action_settings:
-	        Settings();
+	        Close();
 	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);
@@ -273,8 +273,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//Save File as new CSV With option to set File name
 	}
 	
-	public void Settings (){
-		//Output for Settings
+	public void Close (){
+		saveFile();
+		System.exit(0);
 	}
 	
 	

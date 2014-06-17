@@ -40,7 +40,7 @@ public class Read_CSV extends ListActivity {
 		  if(!memberList.isEmpty()) {
 			  memberList.clear();
 		  }		
-		  String filepath = "/sdcard/Download/Namensliste.csv";  
+		  String filepath = "/sdcard/rwd/Namensliste.csv";  
 		  BufferedReader br = null;  
 		  String line = "";  
 		  String splitBy = ",";    
@@ -89,14 +89,13 @@ public class Read_CSV extends ListActivity {
 
 	public static void openFile(String filePath) {
 		  memberList.clear();
-		  String filepath = filePath;  
 		  BufferedReader br = null;  
 		  String line = "";  
 		  String splitBy = ",";    
 		  
 		  try {  
 		  
-		   br = new BufferedReader(new FileReader(filepath));  
+		   br = new BufferedReader(new FileReader(filePath));  
 		   while ((line = br.readLine()) != null) {  
 		  
 		    // split on comma(',')  
