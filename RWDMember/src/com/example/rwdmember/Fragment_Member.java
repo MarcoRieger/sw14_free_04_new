@@ -116,6 +116,7 @@ public class Fragment_Member extends Fragment {
 	            CheckBox cb = (CheckBox) v ;
 	            Member member = (Member) cb.getTag();
 	            member.setSelected(cb.isChecked());
+	            
 	          }
 	        });        
 	      }
