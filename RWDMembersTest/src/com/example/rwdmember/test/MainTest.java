@@ -27,35 +27,59 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		mySolo.clickOnActionBarItem(2); //Statistic
 	}
 	
-	/*public void testActionBarScroll() {
-		mySolo.scrollViewToSide(mySolo.getView(0), mySolo.RIGHT);
-	}*/
-	
-	public void testButton() {
+	public void testButton() throws InterruptedException {
 		mySolo.clickOnActionBarItem(0);
 		mySolo.clickOnButton("Scan");
+		mySolo.goBack();
 	}
 	
-	public void testMenuList() {
-		mySolo.clickOnMenuItem("Settings");
-		mySolo.clickOnMenuItem("Save to File");
+	public void testCheckBox() {
+		mySolo.clickOnActionBarItem(1);
+		
+		mySolo.clickOnCheckBox(0);
+		mySolo.clickOnCheckBox(1);
+		mySolo.clickOnCheckBox(2);
+	}
+	
+	public void testListViewItems() {
+		mySolo.clickOnActionBarItem(1);
+		
+		mySolo.clickInList(0);
+		mySolo.clickInList(1);
+		mySolo.clickInList(2);
+		mySolo.clickInList(3);	
+	}
+	
+	public void testListViewScroll() {
+		mySolo.clickOnActionBarItem(1);
+		
+		mySolo.scrollListToLine(0, 10);	
 	}
 	
 	//---Scan the Member Card of Member01 for positive result
 	//---Requires testing with an android mobile phone
 	public void testInputField() {
+		mySolo.clickOnActionBarItem(0);
 		mySolo.clickOnButton("Scan");
 		
-		String strIn = "20140001";
-		
-		boolean test_input = mySolo.searchEditText(strIn);
-		
-		assertEquals("text is not matched", true, test_input);
+		mySolo.getText("20140001");
 	}
 	
-	public void testMemberView() {
-		mySolo.clickOnActionBarItem(1);
+	public void testOpenFile() {
 		mySolo.clickOnMenuItem("Open CSV File");
+		mySolo.clickOnText("ES Datei Explorer");		
+		
+		mySolo.clickOnActionBarItem(1);
+		
+		mySolo.scrollListToLine(0, 10);
+		mySolo.clickOnCheckBox(11);
+	}
 	
+	public void testSaveFile() {
+		mySolo.clickOnMenuItem("Save to File");
+	}
+	
+	public void testZClose() {
+		mySolo.clickOnMenuItem("Close App");
 	}
 }
