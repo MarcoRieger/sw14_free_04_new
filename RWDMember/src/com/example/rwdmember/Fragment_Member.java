@@ -115,7 +115,7 @@ public class Fragment_Member extends Fragment {
 	          public void onClick(View v) {
 	            CheckBox cb = (CheckBox) v ;
 	            Member member = (Member) cb.getTag();
-	            member.setSelected(cb.isChecked());;
+	            member.setSelected(cb.isChecked());
 	          }
 	        });        
 	      }
