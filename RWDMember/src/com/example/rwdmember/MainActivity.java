@@ -2,8 +2,13 @@ package com.example.rwdmember;
 
 //import java.io.IOException;
 //import java.util.List;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import android.app.ActionBar;
@@ -279,14 +284,46 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	
 		
 	public void saveFile (){
-		//Save File as new CSV With option to set File name
-		// hier geht es wieter
+		Long tStamp = System.currentTimeMillis() / 1000;
+		File logFile = new File("/sdcard/rwd/" + getDate(tStamp.toString()) + ".csv");
+		
+		if (!logFile.exists()) {
+            try {
+                logFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+        	ArrayList<Member> mems = new ArrayList<Member>();
+    		mems = Read_CSV.getMemberList();
+            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
+            for (int i = 0; i < mems.size(); i++) {
+    			buf.append(mems.get(i).getLastName()+ "," + mems.get(i).getFirstName() + "," + mems.get(i).getBarcode());
+    		}
+            buf.newLine();
+            buf.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		Toast.makeText(getApplicationContext(), "Wrote " + logFile.toString(), Toast.LENGTH_LONG).show();
 	}
 	
 	public void Close (){
 		saveFile();
 		System.exit(0);
 	}
+	private String getDate(String timeStamp) {
+		try {
+		    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		    Date netDate = (new Date(Long.parseLong(timeStamp)));
+		    return sdf.format(netDate);
+		}
+		catch(Exception ex) {
+		    return "xx";
+			}
+		} 
 	
 	
 }
